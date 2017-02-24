@@ -3,7 +3,7 @@
 System.register(['aurelia-framework', 'flatpickr', 'flatpickr/dist/flatpickr.css'], function (_export, _context) {
     "use strict";
 
-    var inject, bindable, bindingMode, Flatpickr, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, defaultConfig, AureliaFlatpickrCustomElement;
+    var inject, bindable, bindingMode, Flatpickr, _typeof, _dec, _dec2, _class, _desc, _value, _class2, _descriptor, _descriptor2, defaultConfig, AureliaFlatpickrCustomElement;
 
     function _initDefineProp(target, property, descriptor, context) {
         if (!descriptor) return;
@@ -63,6 +63,11 @@ System.register(['aurelia-framework', 'flatpickr', 'flatpickr/dist/flatpickr.css
             Flatpickr = _flatpickr.default;
         }, function (_flatpickrDistFlatpickrCss) {}],
         execute: function () {
+            _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                return typeof obj;
+            } : function (obj) {
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+            };
             defaultConfig = {
                 enableTime: true,
                 altInput: true,
@@ -142,24 +147,56 @@ System.register(['aurelia-framework', 'flatpickr', 'flatpickr/dist/flatpickr.css
                 AureliaFlatpickrCustomElement.prototype._datesAreSynced = function _datesAreSynced(model, view) {
                     var modelDates = Array.isArray(model) ? model : [model];
 
-                    for (var d = 0; d < modelDates.length; d++) {
+                    var _loop = function _loop(d) {
                         var modelDate = modelDates[d];
 
-                        if (view.indexOf(modelDate) > -1) {
-                            continue;
+                        if (view.some(function (date) {
+                            return date.getTime() === modelDate.getTime();
+                        })) {
+                            return 'continue';
                         }
 
-                        return false;
+                        return {
+                            v: false
+                        };
+                    };
+
+                    for (var d = 0; d < modelDates.length; d++) {
+                        var _ret = _loop(d);
+
+                        switch (_ret) {
+                            case 'continue':
+                                continue;
+
+                            default:
+                                if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+                        }
                     }
 
-                    for (var _d = 0; _d < view.length; _d++) {
-                        var viewDate = view[_d];
+                    var _loop2 = function _loop2(d) {
+                        var viewDate = view[d];
 
-                        if (modelDates.indexOf(viewDate) > -1) {
-                            continue;
+                        if (modelDates.some(function (date) {
+                            return date.getTime() === viewDate.getTime();
+                        })) {
+                            return 'continue';
                         }
 
-                        return false;
+                        return {
+                            v: false
+                        };
+                    };
+
+                    for (var d = 0; d < view.length; d++) {
+                        var _ret2 = _loop2(d);
+
+                        switch (_ret2) {
+                            case 'continue':
+                                continue;
+
+                            default:
+                                if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+                        }
                     }
 
                     return true;
