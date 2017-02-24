@@ -122,7 +122,7 @@ export let AureliaFlatpickrCustomElement = (_dec = inject(Element), _dec2 = bind
         for (let d = 0; d < modelDates.length; d++) {
             let modelDate = modelDates[d];
 
-            if (view.indexOf(modelDate) > -1) {
+            if (view.some(date => date.getTime() === modelDate.getTime())) {
                 continue;
             }
 
@@ -132,7 +132,7 @@ export let AureliaFlatpickrCustomElement = (_dec = inject(Element), _dec2 = bind
         for (let d = 0; d < view.length; d++) {
             let viewDate = view[d];
 
-            if (modelDates.indexOf(viewDate) > -1) {
+            if (modelDates.some(date => date.getTime() === viewDate.getTime())) {
                 continue;
             }
 
