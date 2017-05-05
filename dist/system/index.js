@@ -1,16 +1,19 @@
 'use strict';
 
-System.register([], function (_export, _context) {
+System.register(['aurelia-pal'], function (_export, _context) {
   "use strict";
 
+  var PLATFORM;
   function configure(config) {
-    config.globalResources('./aurelia-flatpickr');
+    config.globalResources(PLATFORM.moduleName('./aurelia-flatpickr'));
   }
 
   _export('configure', configure);
 
   return {
-    setters: [],
+    setters: [function (_aureliaPal) {
+      PLATFORM = _aureliaPal.PLATFORM;
+    }],
     execute: function () {}
   };
 });

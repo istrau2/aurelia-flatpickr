@@ -13,7 +13,7 @@ In your application entry file:
 ```html
   export async function configure(aurelia) {
     aurelia.use
-        .plugin('aurelia-flatpickr')
+        .plugin(PLATFORM.moduleName('aurelia-flatpickr'))
         ...
   }
   ```

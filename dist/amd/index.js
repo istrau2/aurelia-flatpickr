@@ -1,4 +1,4 @@
-define(['exports'], function (exports) {
+define(['exports', 'aurelia-pal'], function (exports, _aureliaPal) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
@@ -6,6 +6,6 @@ define(['exports'], function (exports) {
   });
   exports.configure = configure;
   function configure(config) {
-    config.globalResources('./aurelia-flatpickr');
+    config.globalResources(_aureliaPal.PLATFORM.moduleName('./aurelia-flatpickr'));
   }
 });
